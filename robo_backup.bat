@@ -7,8 +7,7 @@ SET Source=%1
 SET Destination=%2
 SET Backup_Date="%DATE:~-4%"
 SET Log_Dir="C:\_backups\log"
-SET Log_File="%Backup_Dir%\%Backup_Date%.txt"
-
+SET Log_File="%Log_Dir%\robo_backup%Backup_Date%.txt"
 
 :main
 ::Copy over the network to the server with verbose output and logging::
@@ -16,6 +15,8 @@ SET Log_File="%Backup_Dir%\%Backup_Date%.txt"
 IF NOT EXIST %Log_Dir% echo Creating Log Directory && mkdir %Log_Dir%
 
 IF /I %Source% == "m" goto menu
+IF %Source% == "?" goto info
+IF /I %Source% == "help" goto info
 ELSE (
     robocopy  %Source% %Destination% /V /E /LOG+:%Log_File% /MOVE /TEE
     goto eof
@@ -37,6 +38,11 @@ ELSE (
     robocopy %sel_src% %sel_dest%  /V /E /LOG+:%Log_File% /MOVE /TEE
 )
 
-goto menu
+goto menu 
+
+:info
+echo Backup file to another location
+echo robo_backup [m ] [source destination]
+
 
 :eof
