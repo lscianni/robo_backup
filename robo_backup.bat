@@ -2,6 +2,7 @@
 
 ::Backups up %Source% to %Destination% with logging and verbose output::
 ::Louis Scianni 12/13/2017::
+:: Released under FreeBSD license
 
 SET Source=%1
 SET Destination=%2
